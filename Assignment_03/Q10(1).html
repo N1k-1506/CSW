@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website - About</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="jquery-3.7.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+    $(".expand").click(function () {
+        $(this).text(function () {
+            return $(this).text() === "+" ? "-" : "+";
+        });
+        $(this).next(".details").slideToggle();
+    });
+});
+</script>
+</head>
+<body>
+    <h1>Meet Our Team</h1>
+    <div class="team-member">
+        <h2>Team Member 1</h2>
+        <p>Role: Developer</p>
+        <div class="expand">+</div>
+        <div class="details">
+            <p>Additional details about Team Member 1.</p>
+        </div>
+    </div>
+    <a href="Q10.html">Home</a>
+    <a href="Q10(2).html">Contact</a>
+</body>
+</html>
