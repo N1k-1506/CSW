@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload with Progress Bar</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+       $(document).ready(function () {
+    $("#uploadBtn").on("click", function () {
+        var fileInput = $("#fileInput")[0].files[0];
+
+        if (fileInput) {
+            var formData = new FormData();
+            formData.append("file", fileInput);
+            var xhr = new XMLHttpRequest();
+            xhr.upload.addEventListener("progress", function (event) {
+                if (event.lengthComputable) {
+                    var percentComplete = (event.loaded / event.total) * 100;
+                    $(".progress").show();
+                    $(".progress-bar").width(percentComplete + "%").text(percentComplete.toFixed(2) + "%");
+                }
+            });
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log("File uploaded successfully");
+                } else {
+                    console.error("File upload failed. Status: " + xhr.status);
+                }
+            };
+            xhr.onerror = function () {
+                console.error("Network error during file upload");
+            };
+            xhr.open("POST", "upload", true); 
+            xhr.send(formData);
+        } else {
+            console.error("Please select a file to upload");
+        }
+    });
+});
+    </script>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2 class="mb-4">File Upload with Progress Bar</h2>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="fileInput">Choose File:</label>
+                <input type="file" class="form-control-file" id="fileInput" name="file">
+            </div>
+            <div class="progress mb-3" style="display: none;">
+                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <button type="button" class="btn btn-primary" id="uploadBtn">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

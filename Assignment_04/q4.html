@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>q4</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function () {
+    var weatherData = {
+        days: ["Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"],
+        temperatures: [25, 28, 24, 30, 27, 26, 29],
+        conditions: ["Sunny", "Cloudy", "Rainy", "Sunny", "Partly Cloudy", "Sunny", "Thunderstorm"]
+    };
+    var barData = {
+        labels: weatherData.days,
+        datasets: [{
+            label: 'Temperature (°C)',
+            backgroundColor: 'rgba(75, 192, 192, 0.7)',
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+            data: weatherData.temperatures
+        }]
+    };
+    var barOptions = {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
+    var barChart = new Chart(document.getElementById('barChart'), {
+        type: 'bar',
+        data: barData,
+        options: barOptions
+    });
+    var pieData = {
+        labels: weatherData.days,
+        datasets: [{
+            data: [2, 1, 1, 2, 1, 0, 1],
+            backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4CAF50", "#FF9800", "#9C27B0", "#607D8B"]
+        }]
+    };
+    var pieOptions = {
+        responsive: true
+    };
+    var pieChart = new Chart(document.getElementById('pieChart'), {
+        type: 'pie',
+        data: pieData,
+        options: pieOptions
+    });
+});
+
+    </script>
+</head>
+    <body>
+        <div class="container mt-5">
+            <h2 class="mb-4">Last 7 Days Weather Data</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <canvas id="barChart"></canvas>
+                </div>
+                <div class="col-md-6">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
